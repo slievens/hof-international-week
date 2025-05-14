@@ -212,5 +212,5 @@ See notebook `multi_head_attention_exercises.ipynb`.
 ## Sources
 
 
-- \footnotesize Figure 1: "Attention is All You Need" by Vaswani et al. (2017)
-- \footnotesize Figure 2: Adapted from https://cameronrwolfe.substack.com/p/decoder-only-transformers-the-workhorse
+- Figure 1: "Attention is All You Need" by Vaswani et al. (2017)
+- Figure 2: Adapted from https://cameronrwolfe.substack.com/p/decoder-only-transformers-the-workhorse
