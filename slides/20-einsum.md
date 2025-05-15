@@ -130,3 +130,113 @@ Use `einops` to write a Python function to
 Reimplement your version of `SimpleMultiHeadAttention` using `einops` and `einsum`.
 
 See notebook:  `multi_head_attention_exercises.ipynb`.
+
+# Other Einops Functions
+
+## `rearrange`
+
+- `rearrange` let's you reorder the axes of a tensor. Common use case is transposition of axes:
+```python
+print(einops.rearrange(np.arange(12).reshape(3,4), "h w -> w h"))
+```
+yields
+```
+[[ 0  4  8]
+ [ 1  5  9]
+ [ 2  6 10]
+ [ 3  7 11]]
+```
+
+## `rearrange` for Composition and Decomposition of Axes
+
+See examples in notebook.
+
+## `reduce`
+
+In `einops.reduce`, if an axis is not specified, it is reduced.
+```python
+X = np.arange(12).reshape(3, 4).astype(np.float32)
+einops.reduce(X, "rows cols -> cols", reduction="mean")
+```
+yields
+```
+array([4., 5., 6., 7.], dtype=float32)
+<array of shape (4,)>
+```
+
+## Keeping the reduced axis
+
+```python
+# Keep dimensions 
+X = np.arange(12).reshape(3, 4).astype(np.float32)
+einops.reduce(X, "rows cols -> rows 1", reduction="mean").shape
+# or einops.reduce(X, "rows cols -> rows ()", reduction="mean").shape
+```
+yields
+```
+(3,1)
+```
+
+## Max pooling with `reduce`
+
+```python
+# Max pooling and composition of axes
+reduce(images, "b (h h2) (w w2) c -> h (b w) c", "max", h2=2, w2=2)
+```
+
+## `repeat`
+
+Introduce a new axis.
+```python
+X = np.arange(4)
+einops.repeat(X, "w -> h w", h = 4)
+```
+yields
+```
+[[0 1 2 3]
+ [0 1 2 3]
+ [0 1 2 3]
+ [0 1 2 3]]
+```
+
+## `repeat`: shorter syntax
+
+Shorter syntax for `repeat` and different placement of new axis:
+```python
+X = np.arange(4)
+einops.repeat(X, "w -> w 3")
+```
+yields
+```
+[[0 0 0]
+ [1 1 1]
+ [2 2 2]
+ [3 3 3]]
+```
+
+# Exercises
+
+## Exercises
+
+1. Create the following tensor using only `np.arange` and `einops.rearrange`: 
+  ```
+  [[3, 4],
+   [5, 6],
+   [7, 8]]
+  ```
+2. Create the following tensor using only `np.arange` and `einops.rearrange`:
+  ```
+  [[1, 2, 3],
+  [4, 5, 6]]
+  ```
+3. Create the following tensor using only `np.arange` and `einops.rearrange`:
+  ```
+  [[[1], [2], [3], [4], [5], [6]]]
+  ```
+
+## Exercises
+
+4. Compute the average temperature for each week given a 1D tensor of temperatures.
+  The length will be a multiple of 7 and the first 7 days are for the first week, second 7 days for the second week, etc. Use only `einops` operations.
+5. (Continued) For each day, subtract the average for the week the day belongs to. Use only `einops` operations.
+6. Normalize the temperatures as follows: for each day, subtract the weekly average and divide by the weekly standard deviation. Use `einops` operations. Pass `np.std` to `reduce`.
