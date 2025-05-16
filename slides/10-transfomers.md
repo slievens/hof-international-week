@@ -28,17 +28,41 @@ date: May 2025
 A decoder block consists of the following components:
 
 - **Masked (Multi-Head) Self Attention**: see later.
-- A simple **feed forward neural network** (FFNN) with two linear layers and a activation function in between.
+- A simple **feed forward neural network** (FFNN) with two linear layers and an activation function in between.
   - The FFNN is applied to each token independently.
 - We see **skip connections** (or **residual connections**) that allow gradients to flow through the network more easily.
 - **Layer normalization** is applied to the embeddings. This also helps stabilize the training process.
+
+## Training GPT-like Models
+
+- Decoder only transformers are trained to predict the **next token** in a sequence of tokens.
+- A sentence like "the cat sat on the mat" is transformed into the following input and output sequence:
+    - input: "\<sos\> the cat sat on the mat"
+    - output: "the cat sat on the mat \<eos\>"
+- This sentence consists of 7 training examples:
+  - 1st example: "\<sos\>" --> "the"
+  - 2nd example: "\<sos\> the" --> "cat"
+  - ...
+  - 7th example: "\<sos\> the cat sat on the mat" --> "\<eos\>"
+  
+## Training GPT-like Models
+
+- The weights are adjusted to maximize the probability of the correct next token.
+- The loss function is typically the **cross-entropy loss** between the predicted and actual next token.
+
+## Using GPT-like Models (Inference)
+
+- During inference, the model generates text by **sampling** from the predicted distribution of the next token.
+- The sampled token is then added to the input sequence, and the process is repeated until a stopping condition is met (e.g., reaching a maximum length or generating an end-of-sequence token).
+- Thus, text generation requires many forward passes through the model, one for each token in the output sequence.
 
 
 # The Attention Mechanism
 
 ## The Attention Mechanism
 
-- The attention mechanism implemented in the transformer architecture is **scaled dot-product attention**.
+- The attention mechanism is the key component of the transformer architecture.
+- The attention mechanism implemented in the (original) transformer architecture is **scaled dot-product attention**.
 - The attention mechanism allows the transformer to transfer information between different parts of the input sequence.
 
 
