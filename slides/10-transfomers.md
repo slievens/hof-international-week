@@ -16,6 +16,14 @@ date: May 2025
 
 ![GPT like model](./assets/decoder-only-transformer.png)
 
+## Training Task for Base Model
+
+- The model is trained to predict the **next token** in a sequence of tokens.
+- The model is trained in a **self-supervised** manner.
+- The model is trained on a large corpus of text data, such as Wikipedia or Common Crawl.
+- The text is **tokenized** into "tokens" (e.g., words or subwords) using a tokenizer, such as BPE (Byte Pair Encoding).
+  - Each token is represented by a unique integer ID. 
+
 ## Decoder Transformer Parts
 
 - The decoder starts with an **embedding layer** that converts the input tokens into dense vectors. A single example has shape $(n, d)$, where $n$ is the number of tokens and $d$ is the dimension of the token embeddings.
@@ -47,12 +55,13 @@ A decoder block consists of the following components:
   
 ## Training GPT-like Models
 
-- The weights are adjusted to maximize the probability of the correct next token.
+- The weights of the model are adjusted to maximize the probability of the correct next token.
 - The loss function is typically the **cross-entropy loss** between the predicted and actual next token.
+
 
 ## Using GPT-like Models (Inference)
 
-- During inference, the model generates text by **sampling** from the predicted distribution of the next token.
+- During inference, the model generates text by **sampling** from the predicted distribution for the next token.
 - The sampled token is then added to the input sequence, and the process is repeated until a stopping condition is met (e.g., reaching a maximum length or generating an end-of-sequence token).
 - Thus, text generation requires many forward passes through the model, one for each token in the output sequence.
 
@@ -131,8 +140,6 @@ $$
 
 ## Masked Attention (Example)
 
-
-
 $$
 \scriptsize
 \begin{bmatrix}
@@ -207,7 +214,7 @@ Thus, each "head" computes its own result. This result is projected back to the 
 
 ## Single Output Projection Matrix
 
-- The $h$ output projection matrices can be combined into a single output projection matrix $\mathbf{W_O}\in\mathbb{R}^{h\cdot d_v\times d}$:
+- The $h$ output projection matrices can be combined into a single output projection matrix $\mathbf{W_O}\in\mathbb{R}^{h\cdot d_v\times d}$
 $$
 \mathbf{W}_{\mathbf{O}}^T = \begin{bmatrix} \mathbf{W}_{\mathbf{O}}^{(1)} & \mathbf{W}_{\mathbf{O}}^{(2)} & \cdots & \mathbf{W}_{\mathbf{O}}^{(h)} \end{bmatrix}
 $$
