@@ -238,6 +238,36 @@ See notebook `multi_head_attention_exercises.ipynb`.
 
 See notebook `multi_head_attention_exercises.ipynb`.
 
+
+# Visualizing Attention Weights
+
+## Visualizing Attention Weights
+
+- Study of the attention weights in a transformer model may provide some insights into how the model works.
+- The `BertViz` library can be used to visualize the attention weights of a transformer model.
+
+
+## Visualizing Attention Weights
+
+![Visualizing attention weights: previous tokens](./assets/bertviz-previous-token.png)
+
+This attention head from GPT-2 seems to pay attention to the previous token in the sequence. 
+
+## Visualizing Attention Weights
+
+![Visualizing attention weights: list items](./assets/bertviz-list-items.png) 
+
+This attention head from GPT-2 seems to be triggered by an enumeration.
+
+## Visualizing Attention Weights
+
+![Visualizing attention weights: gender bias?](./assets/bertviz-gender.png)
+
+## Exercise
+
+Play around with the notebook `bertviz_example.ipynb` and try to find 
+some interesting attention patterns.
+
 # Sources
 
 ## Sources
@@ -245,3 +275,4 @@ See notebook `multi_head_attention_exercises.ipynb`.
 
 - Figure 1: "Attention is All You Need" by Vaswani et al. (2017)
 - Figure 2: Adapted from https://cameronrwolfe.substack.com/p/decoder-only-transformers-the-workhorse
+- Attention head visualisations are from "A Multiscale Visualization of Attention in the Transformer Model" by J. Vig (2019)
